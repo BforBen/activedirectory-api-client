@@ -2,18 +2,18 @@
 <package>
   <metadata>
     <id>GuildfordBoroughCouncil.ActiveDirectory.Api.Client</id>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <authors>Ben Cheetham</authors>
     <owners>Guildford Borough Council</owners>
     <licenseUrl>https://github.com/GuildfordBC/activedirectory-api-client/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/GuildfordBC/activedirectory-api-client</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A client for the Active Directory lookup API.</description>
-    <releaseNotes>Added ability to lookup group members.</releaseNotes>
+    <releaseNotes>Added ability to search for users.</releaseNotes>
     <copyright>Copyright 2014</copyright>
     <dependencies>
       <dependency id="GuildfordBoroughCouncil.ActiveDirectory" version="1.1.0" />
-      <dependency id="GuildfordBoroughCouncil.Linq" version="1.1.0" />
+      <dependency id="GuildfordBoroughCouncil.Linq" version="1.2.6" />
       <dependency id="Microsoft.AspNet.WebApi.Client" />
       <dependency id="Newtonsoft.Json" />
     </dependencies>
