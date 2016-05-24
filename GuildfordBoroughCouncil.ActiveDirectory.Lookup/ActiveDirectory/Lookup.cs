@@ -125,13 +125,33 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
             return new List<string>();
         }
 
-        public static async Task<IEnumerable<IUser>> FindUsers(string query, bool returnQuery = false)
+        public static async Task<IEnumerable<IUser>> Users(string query, bool returnQuery = false)
         {
             if (!String.IsNullOrWhiteSpace(query))
             {
                 using (var client = GetClient())
                 {
                     var response = client.GetAsync("Lookup/FindUsers?term=" + query + "&rq=" + returnQuery.ToString()).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return await response.Content.ReadAsAsync<IEnumerable<User>>();
+                    }
+                }
+            }
+
+            return new List<User>();
+        }
+
+        public static async Task<IEnumerable<IUser>> Users(IEnumerable<string> SamAccountNames)
+        {
+            if (SamAccountNames != null && SamAccountNames.Count() > 0)
+            {
+                using (var client = GetClient())
+                {
+                    var qs = SamAccountNames.Select(n => "UserNames=" + n);
+
+                    var response = client.GetAsync("Lookup/Users?" + string.Join("&", qs)).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
