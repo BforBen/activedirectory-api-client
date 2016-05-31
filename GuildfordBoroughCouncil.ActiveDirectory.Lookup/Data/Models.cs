@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
-using System.Threading.Tasks;
 using GuildfordBoroughCouncil.ActiveDirectory.Interfaces;
 
 namespace GuildfordBoroughCouncil.Data.Models
@@ -15,6 +14,7 @@ namespace GuildfordBoroughCouncil.Data.Models
     }
 
     [DisplayColumn("Name")]
+    [ComplexType]
     public class AdObject
     {
         public AdObject()
@@ -110,6 +110,7 @@ namespace GuildfordBoroughCouncil.Data.Models
     }
 
     [DisplayColumn("Name")]
+    [ComplexType]
     public class User
     {
         public User() { }
