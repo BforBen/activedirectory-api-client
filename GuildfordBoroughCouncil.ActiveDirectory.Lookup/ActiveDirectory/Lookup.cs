@@ -80,8 +80,8 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var Users = await response.Content.ReadAsAsync<IEnumerable<User>>();
-                        return Users.FirstOrDefault() ?? new User();
+                        var Users = await response.Content.ReadAsAsync<User>();
+                        return Users ?? new User();
                     }
                 }
             }
