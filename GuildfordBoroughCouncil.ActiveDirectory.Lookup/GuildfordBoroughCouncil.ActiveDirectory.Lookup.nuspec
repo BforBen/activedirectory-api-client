@@ -11,13 +11,13 @@
     <iconUrl>http://cdn.guildford.gov.uk/assets/favicon-32x32.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A client for the Active Directory lookup API.</description>
-    <releaseNotes>Added ability to search for users.</releaseNotes>
+    <releaseNotes>** Breaking change ** Check you are using correct URL as this needs to connect to the new service</releaseNotes>
     <copyright>Copyright Guildford Borough Council 2014</copyright>
     <dependencies>
       <dependency id="GuildfordBoroughCouncil.ActiveDirectory" version="1.1.0" />
       <dependency id="GuildfordBoroughCouncil.Linq" version="1.2.6" />
-      <dependency id="Microsoft.AspNet.WebApi.Client" />
-      <dependency id="Newtonsoft.Json" />
+      <dependency id="Microsoft.AspNet.WebApi.Client" version="5.2.3" />
+      <dependency id="Newtonsoft.Json" version="9.0.1" />
     </dependencies>
   </metadata>
 </package>

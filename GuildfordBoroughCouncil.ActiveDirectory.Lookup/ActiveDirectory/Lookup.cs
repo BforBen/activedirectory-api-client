@@ -57,7 +57,7 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
         {
             using (var client = GetClient())
             {
-                var response = client.GetAsync("Lookup/Councillors?term=" + query).Result;
+                var response = client.GetAsync("v1/users/councillors?q=" + query).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -76,7 +76,7 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
             {
                 using (var client = GetClient())
                 {
-                    var response = client.GetAsync("Lookup/Users?UserNames=" + SamAccountName).Result;
+                    var response = client.GetAsync("v1/users/" + SamAccountName).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -95,7 +95,7 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
             {
                 using (var client = GetClient())
                 {
-                    var response = client.GetAsync("Lookup/GroupMembers/" + SamAccountName).Result;
+                    var response = client.GetAsync("v1/groups/" + SamAccountName + "/members").Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -113,7 +113,7 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
             {
                 using (var client = GetClient())
                 {
-                    var response = client.GetAsync("Lookup/UserGroups/" + SamAccountName + "?follow=" + Follow.ToString()).Result;
+                    var response = client.GetAsync("v1/users/" + SamAccountName + "/groups?follow=" + Follow.ToString()).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -131,7 +131,7 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
             {
                 using (var client = GetClient())
                 {
-                    var response = client.GetAsync("Lookup/FindUsers?term=" + query + "&rq=" + returnQuery.ToString()).Result;
+                    var response = client.GetAsync("v1/users?q=" + query + "&rq=" + returnQuery.ToString()).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -147,20 +147,19 @@ namespace GuildfordBoroughCouncil.ActiveDirectory
         {
             if (SamAccountNames != null && SamAccountNames.Count() > 0)
             {
-                using (var client = GetClient())
+                var Users = new List<IUser>();
+
+                foreach (var user in SamAccountNames)
                 {
-                    var qs = SamAccountNames.Select(n => "UserNames=" + n);
+                    var u = await User(user);
 
-                    var response = client.GetAsync("Lookup/Users?" + string.Join("&", qs)).Result;
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return await response.Content.ReadAsAsync<IEnumerable<User>>();
-                    }
+                    if (u != null)
+                        Users.Add(u);
                 }
+                return Users;
             }
 
-            return new List<User>();
+            return new List<IUser>();
         }
     }
 }
